@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -30,5 +31,10 @@ import java.util.Optional;
     @Override
     public long findAantal() {
         return bierRepository.findAantal();
+    }
+
+    @Override
+    public List<Bier> findByIds(Set<Long> ids) {
+        return bierRepository.findByIds(ids);
     }
 }

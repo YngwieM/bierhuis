@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 class JdbcBierRepository implements BierRepository {
@@ -50,5 +51,14 @@ class JdbcBierRepository implements BierRepository {
     @Override
     public long findAantal() {
         return template.queryForObject("select count(*) from bieren", Long.class);
+    }
+
+    @Override
+    public List<Bier> findByIds(Set<Long> ids) {
+        if (ids.isEmpty()) {
+            return List.of();
+        }
+        var sql = "select id,naam,brouwerid,soortid,alcohol,prijs from bieren where id in (" + "?,".repeat(ids.size() - 1) +"?) order by naam";
+        return template.query(sql, ids.toArray(), bierRowMapper);
     }
 }
