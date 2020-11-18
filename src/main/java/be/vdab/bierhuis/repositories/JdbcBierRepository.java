@@ -21,8 +21,7 @@ class JdbcBierRepository implements BierRepository {
     private final RowMapper<Bier> bierRowMapper = (result, rowNum) ->
             new Bier(result.getInt("id"), result.getString("naam"),
                     result.getInt("brouwerid"),result.getInt("soortid"),
-                    result.getBigDecimal("alcohol"),result.getBigDecimal("prijs"),
-                    result.getInt("besteld"));
+                    result.getBigDecimal("alcohol"),result.getBigDecimal("prijs"));
 
 
     @Override

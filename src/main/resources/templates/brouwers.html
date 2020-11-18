@@ -11,11 +11,12 @@
     </ul>
 </nav>
 <body>
+<h1>Brouwers</h1>
 
-
-<li th:each="bier:${brouwerbier}" th:object="${bier}">
-    <a th:href="@{/bier/{id}(id=*{id})}" th:text="*{naam}"></a>
+<li th:each="brouwer:${brouwers}" th:object="${brouwer}">
+    <a th:href="@{/brouwer/{id}(id=*{id})}" th:text="*{naam + '(' + gemeente + ')'}"></a>
 
 </li>
+
 </body>
 </html>

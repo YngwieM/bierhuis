@@ -12,11 +12,18 @@ import java.util.Set;
 public class Mandje implements Serializable {
     private static final long serialVersionUID = 1L;
     private final Set<Long> ids = new LinkedHashSet<>();
+    private final Set<Long> aantals = new LinkedHashSet<>();
     public void voegToe(long id) {
         ids.add(id);
+    }
+    public void voegAantal(long aantal) {
+        aantals.add(aantal);
     }
 
     public Set<Long> getIds() {
         return ids;
+    }
+    public Set<Long> getAantal() {
+        return aantals;
     }
 }

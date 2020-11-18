@@ -9,16 +9,16 @@ public class Bier {
     private final int soortId;
     private final BigDecimal alcohol;
     private final BigDecimal prijs;
-    private final int besteld;
 
-    public Bier(int id, String naam, int brouwerId, int soortId, BigDecimal alcohol, BigDecimal prijs, int besteld) {
+
+    public Bier(int id, String naam, int brouwerId, int soortId, BigDecimal alcohol, BigDecimal prijs) {
         this.id = id;
         this.naam = naam;
         this.brouwerId = brouwerId;
         this.soortId = soortId;
         this.alcohol = alcohol;
         this.prijs = prijs;
-        this.besteld = besteld;
+
     }
 
     public int getId() {
@@ -45,9 +45,6 @@ public class Bier {
         return prijs;
     }
 
-    public int getBesteld() {
-        return besteld;
-    }
 }
 
 

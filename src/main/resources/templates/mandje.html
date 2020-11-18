@@ -16,15 +16,17 @@
 <table>
     <thead>
     <tr>
-        <th>Film</th>
+        <th>Bier</th>
         <th>Prijs</th>
+        <th>Aantal</th>
+        <th>Te betalen</th>
         <th><button>Verwijderen</button></th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="bier:${mandbieren}">
         <td th:text="${bier.naam}">titel</td>
-        <td th:text="${'€' + bier.prijs}"></td>
+        <td th:text="${bier.prijs}"></td>
     </tr>
     </tbody>
 </table>

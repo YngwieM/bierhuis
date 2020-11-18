@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
 </head>
 <nav th:fragment="menu">
     <ul >
         <li><a th:href="@{/}">Welkom</a>
-            <a th:href="@{/brouwers}">Brouwers</a></li>
+            <a th:href="@{/brouwer}">Brouwers</a></li>
     </ul>
 </nav>
 <body>
 <h1>Welkom in het huis van de Belgische bieren</h1>
 
-<img th:src="${'/images/bierhuis.jpg'}" th:alt="Geen foto beschikbaar"/>
+<img th:src="${'/images/bierhuis.jpg'}"/>
+
+<h2>Wij hebben <span th:text="${aantal}"></span> bieren</h2>
 
 </body>
 </html>

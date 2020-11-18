@@ -26,9 +26,20 @@ import org.springframework.web.servlet.ModelAndView;
         mandje.voegToe(id);
         return "redirect:/mandje";
     }
+    @PostMapping("{aantal}")
+    public String aantal(@PathVariable long aantal) {
+        mandje.voegAantal(aantal);
+        return "redirect:/mandje";
+    }
+
+
+
     @GetMapping
     public ModelAndView toonMandje() {
-        return new ModelAndView("mandje",
-                "mandbieren",bierService.findByIds(mandje.getIds()));
+        var modelAndView = new ModelAndView("mandje");
+        modelAndView.addObject("mandbieren",bierService.findByIds(mandje.getIds()));
+        modelAndView.addObject("aantal",mandje.getAantal());
+
+        return modelAndView;
     }
 }
