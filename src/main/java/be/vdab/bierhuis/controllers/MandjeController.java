@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.math.BigDecimal;
+
 @Controller
 @RequestMapping("mandje")
  class MandjeController {
@@ -21,14 +23,10 @@ import org.springframework.web.servlet.ModelAndView;
         this.bierService = bierService;
     }
 
-    @PostMapping("{id}")
-    public String voegToe(@PathVariable long id) {
-        mandje.voegToe(id);
-        return "redirect:/mandje";
-    }
-    @PostMapping("{aantal}")
-    public String aantal(@PathVariable long aantal) {
-        mandje.voegAantal(aantal);
+    @PostMapping("{id}/{aantal}")
+    public String voegToe(@PathVariable long id, @PathVariable long aantal) {
+       BigDecimal prijs =  bierService.findById(id).get().getPrijs();
+        mandje.voegLijnToe(id,aantal, prijs);
         return "redirect:/mandje";
     }
 
@@ -38,7 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
     public ModelAndView toonMandje() {
         var modelAndView = new ModelAndView("mandje");
         modelAndView.addObject("mandbieren",bierService.findByIds(mandje.getIds()));
-        modelAndView.addObject("aantal",mandje.getAantal());
+        modelAndView.addObject("lijstbestellijnen",mandje.getBestelLijnLijst());
 
         return modelAndView;
     }

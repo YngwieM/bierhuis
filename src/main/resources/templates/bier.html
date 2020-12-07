@@ -21,12 +21,16 @@
         <dt>Prijs</dt>
         <dd th:text="*{prijs}"></dd>
     </dl>
-<!--    <form method="post" th:action="@{/mandje/{aantal}(aantal=*{aantal})">-->
-<!--    <label>Aantal:<span th:errors="*{aantal}"></span><input th:field="*{aantal}" autofocus type="number" required min="0"></label>-->
-    <form method="post" th:action="@{/mandje/{id}(id=*{id})}">
+    <form method="post" th:action="@{/mandje/{id}/{aantal}(id=*{id})}">
+        <label th:field="*{naam}" autofocus required></label>
+
+<!--    <label>Aantal:<span th:errors="*{aantal}"></span>-->
+<!--        <input th:field="*{aantal}" autofocus type="number" required min="0">-->
+<!--    </label>-->
+
         <button>Toevoegen</button>
     </form>
-<!--    </form>-->
+
 </div>
 </body>
 </html>

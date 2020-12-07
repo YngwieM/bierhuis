@@ -24,10 +24,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="bier:${mandbieren}">
-        <td th:text="${bier.naam}">titel</td>
-        <td th:text="${bier.prijs}"></td>
+
+    <tr th:each="lijst:${lijstbestellijnen}">
+        <td th:text="${lijst.getBierId()}">titel</td>
+        <td th:text="${ lijst.getAantal()}"></td>
+        <td th:text="${lijst.getPrijs() * lijst.getAantal()}"></td>
     </tr>
+
     </tbody>
 </table>
 </body>
