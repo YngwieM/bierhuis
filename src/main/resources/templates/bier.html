@@ -23,10 +23,9 @@
     </dl>
     <form method="post" th:action="@{/mandje/{id}/{aantal}(id=*{id})}">
         <label th:field="*{naam}" autofocus required></label>
-
-<!--    <label>Aantal:<span th:errors="*{aantal}"></span>-->
-<!--        <input th:field="*{aantal}" autofocus type="number" required min="0">-->
-<!--    </label>-->
+    <label>Aantal:<span th:errors="*{naam}"></span>
+        <input th:field="*{naam}" autofocus type="number" required min="0">
+    </label>
 
         <button>Toevoegen</button>
     </form>
