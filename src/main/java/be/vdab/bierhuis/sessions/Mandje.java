@@ -18,7 +18,10 @@ public class Mandje implements Serializable {
 
 private final List<BestelBonLijn> bestelLijnLijst = new ArrayList<BestelBonLijn>();
 
+
     private final Set<Long> ids = new LinkedHashSet<>();
+
+
     public void voegLijnToe(long id, long aantal, BigDecimal prijs) {
         bestelLijnLijst.add(new BestelBonLijn(0,id,aantal,prijs));
     }
@@ -29,4 +32,5 @@ private final List<BestelBonLijn> bestelLijnLijst = new ArrayList<BestelBonLijn>
     public Set<Long> getIds() {
         return ids;
     }
+
 }
