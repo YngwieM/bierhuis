@@ -21,8 +21,8 @@
         <dt>Prijs</dt>
         <dd th:text="*{prijs}"></dd>
     </dl>
-    <form method="post" th:object="${aantalBierenForm}" th:action="@{/mandje/{id}(id=*{id})}">
-        <label th:field="*{aantal}" autofocus required></label>
+    <form method="post" th:object="${aantalBierenForm}" th:action="@{/mandje/{id}(id=${bier.id})}">
+        <label autofocus required></label>
     <label>Aantal:<span th:errors="*{aantal}"></span>
         <input th:field="*{aantal}" autofocus type="number" required min="0">
     </label>

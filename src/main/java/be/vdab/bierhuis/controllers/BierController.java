@@ -37,7 +37,7 @@ public class BierController {
     @GetMapping("aantalbieren/form")
     public ModelAndView aantalBierenForm() {
         return new ModelAndView("bier")
-                .addObject(new AantalBierenForm(0));
+                .addObject(new AantalBierenForm(0L));
     }
 
     @GetMapping("aantalbieren")
