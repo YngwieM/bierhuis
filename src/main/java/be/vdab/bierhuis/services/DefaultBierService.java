@@ -43,10 +43,15 @@ import java.util.Set;
         return bierRepository.findByIds(ids);
     }
 
-//    public List<MandjeLijst> toonBestelLijn() {
-//        List<MandjeLijst> mandjelijst = new ArrayList<>();
-//
-//        var bestellijnIds = mandje.getIds();
-//        for ()
-//    }
+    public List<MandjeLijst> toonBestelLijn() {
+        List<MandjeLijst> mandjelijst = new ArrayList<>();
+
+        var bestellijnIds = mandje.getIds();
+        for (var id:bestellijnIds) {
+            var aantal = mandje.getBestelLijnLijst();
+          aantal.stream().filter(lijst -> lijst.getBierId() == id);
+            var bier = bierRepository.findById(id).get();
+            var lijst = new MandjeLijst(bier.getNaam(), bier.getPrijs(),)
+        }
+    }
 }
