@@ -21,10 +21,10 @@ private final List<BestelBonLijn> bestelLijnLijst = new ArrayList<BestelBonLijn>
 
     private final Set<Long> ids = new LinkedHashSet<>();
 
-
-    public void voegLijnToe(long id, long aantal, BigDecimal prijs) {
-        bestelLijnLijst.add(new BestelBonLijn(0,id,aantal,prijs));
+    public void voegToe(long id) {
+        ids.add(id);
     }
+
 
     public List<BestelBonLijn> getBestelLijnLijst() {
         return bestelLijnLijst;

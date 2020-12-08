@@ -1,5 +1,6 @@
 package be.vdab.bierhuis.services;
 
+import be.vdab.bierhuis.domain.BestelBonLijn;
 import be.vdab.bierhuis.domain.Bier;
 import be.vdab.bierhuis.queryresults.MandjeLijst;
 import be.vdab.bierhuis.repositories.BierRepository;
@@ -7,10 +8,8 @@ import be.vdab.bierhuis.sessions.Mandje;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Service
 @Transactional
@@ -43,15 +42,17 @@ import java.util.Set;
         return bierRepository.findByIds(ids);
     }
 
-    public List<MandjeLijst> toonBestelLijn() {
-        List<MandjeLijst> mandjelijst = new ArrayList<>();
+//    public List<MandjeLijst> toonLijst() {
+//        List<MandjeLijst> mandlijst = new ArrayList<>();
+//        for ()
+//        var lijn = new MandjeLijst(naam,prijs,aantal);
+//        mandlijst.add(lijn);
+//        return mandlijst;
+//    }
 
-        var bestellijnIds = mandje.getIds();
-        for (var id:bestellijnIds) {
-            var aantal = mandje.getBestelLijnLijst();
-          aantal.stream().filter(lijst -> lijst.getBierId() == id);
-            var bier = bierRepository.findById(id).get();
-            var lijst = new MandjeLijst(bier.getNaam(), bier.getPrijs(),)
-        }
+    public Set<Long> toonLijstAantal( long aantal) {
+         Set<Long> aantals = new LinkedHashSet<>();
+        aantals.add(aantal);
+        return aantals;
     }
 }

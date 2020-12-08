@@ -1,6 +1,8 @@
 package be.vdab.bierhuis.controllers;
 
 
+import be.vdab.bierhuis.domain.BestelBonLijn;
+import be.vdab.bierhuis.services.BestelBonLijnService;
 import be.vdab.bierhuis.services.BierService;
 import be.vdab.bierhuis.sessions.Mandje;
 import org.springframework.stereotype.Controller;
@@ -10,23 +12,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.math.BigDecimal;
-
 @Controller
 @RequestMapping("mandje")
  class MandjeController {
     private final Mandje mandje;
     private final BierService bierService;
+    private final BestelBonLijnService bestelBonLijnService;
 
-    MandjeController(Mandje mandje, BierService bierService) {
+    MandjeController(Mandje mandje, BierService bierService, BestelBonLijnService bestelBonLijnService) {
         this.mandje = mandje;
         this.bierService = bierService;
+        this.bestelBonLijnService = bestelBonLijnService;
     }
 
-    @PostMapping("{id}/{aantal}")
-    public String voegToe(@PathVariable long id, @PathVariable long aantal) {
-       BigDecimal prijs =  bierService.findById(id).get().getPrijs();
-        mandje.voegLijnToe(id,aantal, prijs);
+    @PostMapping("{id}")
+    public String voegToe(@PathVariable long id) {
+        mandje.voegToe(id);
+        var bestelbonlijn = new BestelBonLijn(0,id,bierService.findAantal(),bierService.findById(id).get().getPrijs());
+        bestelBonLijnService.create(bestelbonlijn);
         return "redirect:/mandje";
     }
 
