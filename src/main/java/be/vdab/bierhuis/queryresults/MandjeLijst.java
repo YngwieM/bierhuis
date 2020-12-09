@@ -30,4 +30,6 @@ public class MandjeLijst {
         BigDecimal aantalBig = new BigDecimal(aantal);
         return prijs.multiply(aantalBig);
     }
+
+
 }

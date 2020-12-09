@@ -20,16 +20,23 @@
         <th>Prijs</th>
         <th>Aantal</th>
         <th>Te betalen</th>
-        <th><button>Bestelbon plaasten</button></th>
     </tr>
     </thead>
     <tbody>
 
-    <tr th:each="lijst:${lijstbestellijnen}">
-        <td th:text="${mandbieren.get(lijst.getBierId()).getNaam()}">titel</td>
-        <td th:text="${ lijst.getAantal()}"></td>
-        <td th:text="${lijst.getPrijs() * lijst.getAantal()}"></td>
+    <tr th:each="item:${mand.getItems()}" th:object="${item}">
+        <td th:text="*{naam}"></td>
+        <td th:text="*{aantal}"></td>
+        <td th:text="*{prijs}"></td>
+        <td th:text="*{getTotaal()}"></td>
     </tr>
+
+    <tr  th:object="${totaal}">
+        <td >Totaal:</td>
+        <td th:text="${totaal}">Totaal</td>
+    </tr>
+    <th><button>Bestelbon plaasten</button></th>
+
 
     </tbody>
 </table>

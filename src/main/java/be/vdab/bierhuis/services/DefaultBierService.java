@@ -42,17 +42,16 @@ import java.util.*;
         return bierRepository.findByIds(ids);
     }
 
-//    public List<MandjeLijst> toonLijst() {
-//        List<MandjeLijst> mandlijst = new ArrayList<>();
-//        for ()
-//        var lijn = new MandjeLijst(naam,prijs,aantal);
-//        mandlijst.add(lijn);
-//        return mandlijst;
-//    }
+
 
     public Set<Long> toonLijstAantal( long aantal) {
          Set<Long> aantals = new LinkedHashSet<>();
         aantals.add(aantal);
         return aantals;
     }
+    public BigDecimal getTotaalPrijs(BigDecimal prijs) {   //hier doen?
+var totaal = new BigDecimal(0);
+        return totaal.add(prijs);
+    }
+
 }

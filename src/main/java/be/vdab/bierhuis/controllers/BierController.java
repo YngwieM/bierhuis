@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,28 +26,27 @@ public class BierController {
         this.mandje = mandje;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ModelAndView bierId(@PathVariable long id) {
         var modelAndView = new ModelAndView("bier");
         Bier bier = bierService.findById(id).get();
         modelAndView.addObject("bier", bier);
+        modelAndView.addObject(new AantalBierenForm(0L));
 
         return modelAndView;
     }
 
-    @GetMapping("aantalbieren/form")
-    public ModelAndView aantalBierenForm() {
-        return new ModelAndView("bier")
-                .addObject(new AantalBierenForm(0L));
-    }
 
-    @GetMapping("aantalbieren")
-    public ModelAndView aantalBieren(@Valid AantalBierenForm form, Errors errors) {
+
+    @PostMapping("{id}/bestellen")
+    public ModelAndView aantalBieren(@PathVariable Long id,@Valid AantalBierenForm form, Errors errors) {
         var modelAndView = new ModelAndView("bier");
         if (errors.hasErrors()) {
+            Bier bier = bierService.findById(id).get();
+            modelAndView.addObject("bier", bier);
             return modelAndView;
         }
-        return modelAndView.addObject("mandjeLijst",
-                bierService.toonLijstAantal(form.getAantal()));
+        mandje.voegToe(id,form.getAantal());
+        return new ModelAndView("redirect:/mandje");
     }
 }

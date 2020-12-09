@@ -6,10 +6,7 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Component
 @SessionScope
@@ -19,18 +16,27 @@ public class Mandje implements Serializable {
 private final List<BestelBonLijn> bestelLijnLijst = new ArrayList<BestelBonLijn>();
 
 
-    private final Set<Long> ids = new LinkedHashSet<>();
+    private final Map<Long, Long> ids = new HashMap<>();
 
-    public void voegToe(long id) {
-        ids.add(id);
+    public void voegToe(long id, long aantal) {
+        ids.put(id, aantal);
     }
 
 
-    public List<BestelBonLijn> getBestelLijnLijst() {
-        return bestelLijnLijst;
-    }
-    public Set<Long> getIds() {
+
+    public Map<Long,Long> getIds() {
         return ids;
     }
 
+    public void maakMandjeLeeg() {
+        ids.clear();
+    }
+
+    public Set<Long> getBierIds() {
+        return ids.keySet();
+    }
+
+    public Long getAantalVanBierId(long bierId) {
+        return ids.get(bierId);
+    }
 }

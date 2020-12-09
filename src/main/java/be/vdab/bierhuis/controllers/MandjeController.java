@@ -2,6 +2,9 @@ package be.vdab.bierhuis.controllers;
 
 
 import be.vdab.bierhuis.domain.BestelBonLijn;
+import be.vdab.bierhuis.domain.Bier;
+import be.vdab.bierhuis.queryresults.Mand;
+import be.vdab.bierhuis.queryresults.MandjeLijst;
 import be.vdab.bierhuis.services.BestelBonLijnService;
 import be.vdab.bierhuis.services.BierService;
 import be.vdab.bierhuis.sessions.Mandje;
@@ -11,6 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("mandje")
@@ -25,21 +32,19 @@ import org.springframework.web.servlet.ModelAndView;
         this.bestelBonLijnService = bestelBonLijnService;
     }
 
-    @PostMapping("{id}")
-    public String voegToe(@PathVariable long id) {
-        mandje.voegToe(id);
-        var bestelbonlijn = new BestelBonLijn(0,id,bierService.findAantal(),bierService.findById(id).get().getPrijs());
-        bestelBonLijnService.create(bestelbonlijn);
-        return "redirect:/mandje";
-    }
-
 
 
     @GetMapping
     public ModelAndView toonMandje() {
         var modelAndView = new ModelAndView("mandje");
-        modelAndView.addObject("mandbieren",bierService.findByIds(mandje.getIds()));
-        modelAndView.addObject("lijstbestellijnen",mandje.getBestelLijnLijst());
+        Set<Long> bierIds = mandje.getBierIds();
+        var mand = new Mand();
+        List<Bier> besteldeBieren = bierService.findByIds(bierIds);
+        besteldeBieren.forEach(bier ->mand.voegToe(bier, mandje.getAantalVanBierId(bier.getId())));
+        BigDecimal totaal = new BigDecimal(0);// moet hier mijn totaal toevoegen.
+        besteldeBieren.forEach(bier ->mand.getTotaalPrijs(new BigDecimal(mandje.getAantalVanBierId(bier.getId())).multiply(bier.getPrijs())));
+        modelAndView.addObject("mand",mand);
+        modelAndView.addObject("totaal",totaal);
 
         return modelAndView;
     }
