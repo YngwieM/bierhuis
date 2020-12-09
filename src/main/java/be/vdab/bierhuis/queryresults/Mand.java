@@ -20,7 +20,11 @@ public class Mand {
     }
 
 
-    public BigDecimal getTotaalPrijs(BigDecimal prijs) {
-        return totaal.add(prijs);
+    public BigDecimal getTotaalPrijs() {
+        for (var item : items) {
+            totaal = totaal.add(item.getTotaal());
+        }
+        return totaal;
+
     }
 }

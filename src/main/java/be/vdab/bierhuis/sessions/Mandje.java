@@ -13,14 +13,15 @@ import java.util.*;
 public class Mandje implements Serializable {
     private static final long serialVersionUID = 1L;
 
-private final List<BestelBonLijn> bestelLijnLijst = new ArrayList<BestelBonLijn>();
 
+private final Set<Long> bestelBonId = new LinkedHashSet<>();
 
     private final Map<Long, Long> ids = new HashMap<>();
 
     public void voegToe(long id, long aantal) {
         ids.put(id, aantal);
     }
+    public void voegBestelBonIdToe(long id) {bestelBonId.add(id);}
 
 
 
@@ -29,12 +30,16 @@ private final List<BestelBonLijn> bestelLijnLijst = new ArrayList<BestelBonLijn>
     }
 
     public void maakMandjeLeeg() {
+
         ids.clear();
+        bestelBonId.clear();
     }
 
     public Set<Long> getBierIds() {
         return ids.keySet();
     }
+
+    public Set<Long> getBestelBonId() { return bestelBonId;}
 
     public Long getAantalVanBierId(long bierId) {
         return ids.get(bierId);
