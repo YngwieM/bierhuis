@@ -42,7 +42,7 @@ import java.util.Set;
         List<Bier> besteldeBieren = bierService.findByIds(bierIds);
         besteldeBieren.forEach(bier ->mand.voegToe(bier, mandje.getAantalVanBierId(bier.getId())));
         BigDecimal totaal = new BigDecimal(0);// moet hier mijn totaal toevoegen.
-        besteldeBieren.forEach(bier ->mand.getTotaalPrijs(new BigDecimal(mandje.getAantalVanBierId(bier.getId())).multiply(bier.getPrijs())));
+        besteldeBieren.forEach(bier ->mand.getTotaalPrijs(new BigDecimal(mandje.getAantalVanBierId(bier.getId())).multiply(bier.getPrijs()))); // dit zou moeten werken?
         modelAndView.addObject("mand",mand);
         modelAndView.addObject("totaal",totaal);
 
