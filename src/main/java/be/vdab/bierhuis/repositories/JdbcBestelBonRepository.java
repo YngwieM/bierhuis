@@ -41,7 +41,7 @@ import java.util.Optional;
     @Override
     public Optional<Bestelbon> findIdByNaam(String naam) {
             try {
-                var sql ="select id,naam,straat,huisNr,postcode,gemeente from bestelbonnen where naam like ?";
+                var sql ="select id,naam,straat,huisNr,postcode,gemeente from bestelbonnen where naam like ? order by id desc limit 1";
                 Optional<Bestelbon> bestelbon = Optional.of(template.queryForObject(sql, bestelbonRowMapper, naam));
                 return bestelbon;
             } catch (IncorrectResultSizeDataAccessException ex) {
