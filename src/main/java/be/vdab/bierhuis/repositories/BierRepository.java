@@ -13,6 +13,7 @@ public interface BierRepository {
     List<Bier> findByBrouwerId(long id);
     long findAantal();
     List<Bier> findByIds(Set<Long> ids);
+    void updateBieren(long id, long aantal);
 
 
 }

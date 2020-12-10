@@ -13,6 +13,6 @@ public interface BierService {
     List<Bier> findByBrouwerId(long id);
     long findAantal();
     List<Bier> findByIds(Set<Long> ids);
-//    List<MandjeLijst> toonLijst(String naam, long aantal, BigDecimal prijs);
     Set<Long> toonLijstAantal( long aantal);
+    void updateBieren(long id, long aantal);
 }

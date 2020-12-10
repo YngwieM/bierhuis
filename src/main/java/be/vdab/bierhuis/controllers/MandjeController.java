@@ -61,6 +61,7 @@ import java.util.Set;
         Set<Long> bierIds = mandje.getBierIds();
         List<Bier> besteldeBieren = bierService.findByIds(bierIds);
         besteldeBieren.forEach(bier -> bestelBonLijnService.create(new BestelBonLijn(bestelIdLong,bier.getId(), mandje.getAantalVanBierId(bier.getId()),bier.getPrijs())));
+        besteldeBieren.forEach(bier -> bierService.updateBieren(bier.getId(), mandje.getAantalVanBierId(bier.getId())));
         mandje.voegBestelBonIdToe(bestelIdLong);
 
 

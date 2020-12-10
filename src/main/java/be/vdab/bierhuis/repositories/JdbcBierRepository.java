@@ -1,6 +1,7 @@
 package be.vdab.bierhuis.repositories;
 
 import be.vdab.bierhuis.domain.Bier;
+import be.vdab.bierhuis.exceptions.BierNietGevondenException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -18,16 +19,17 @@ class JdbcBierRepository implements BierRepository {
     JdbcBierRepository(JdbcTemplate template) {
         this.template = template;
     }
+
     private final RowMapper<Bier> bierRowMapper = (result, rowNum) ->
             new Bier(result.getInt("id"), result.getString("naam"),
-                    result.getInt("brouwerid"),result.getInt("soortid"),
-                    result.getBigDecimal("alcohol"),result.getBigDecimal("prijs"));
+                    result.getInt("brouwerid"), result.getInt("soortid"),
+                    result.getBigDecimal("alcohol"), result.getBigDecimal("prijs"));
 
 
     @Override
     public Optional<Bier> findById(long id) {
         try {
-            var sql ="select id,naam,brouwerid,soortid,alcohol,prijs from bieren where id = ?";
+            var sql = "select id,naam,brouwerid,soortid,alcohol,prijs from bieren where id = ?";
             Optional<Bier> bieren = Optional.of(template.queryForObject(sql, bierRowMapper, id));
             return bieren;
         } catch (IncorrectResultSizeDataAccessException ex) {
@@ -38,7 +40,7 @@ class JdbcBierRepository implements BierRepository {
     @Override
     public List<Bier> findByBrouwerId(long id) {
         try {
-            var sql ="select id,naam,brouwerid,soortid,alcohol,prijs from bieren where brouwerid = ? order by naam";
+            var sql = "select id,naam,brouwerid,soortid,alcohol,prijs from bieren where brouwerid = ? order by naam";
             List<Bier> bieren = template.query(sql, bierRowMapper, id);
 
             return bieren;
@@ -57,7 +59,15 @@ class JdbcBierRepository implements BierRepository {
         if (ids.isEmpty()) {
             return List.of();
         }
-        var sql = "select id,naam,brouwerid,soortid,alcohol,prijs from bieren where id in (" + "?,".repeat(ids.size() - 1) +"?) order by naam";
+        var sql = "select id,naam,brouwerid,soortid,alcohol,prijs from bieren where id in (" + "?,".repeat(ids.size() - 1) + "?) order by naam";
         return template.query(sql, ids.toArray(), bierRowMapper);
+    }
+
+    @Override
+    public void updateBieren(long id, long aantal) {
+        var sql = "update bieren set besteld = besteld + ? where id = ?";
+        if (template.update(sql, aantal, id) == 0) {
+            throw new BierNietGevondenException();
+        }
     }
 }

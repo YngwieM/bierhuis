@@ -49,6 +49,12 @@ import java.util.*;
         aantals.add(aantal);
         return aantals;
     }
+
+    @Override
+    public void updateBieren(long id, long aantal) {
+        bierRepository.updateBieren(id,aantal);
+    }
+
     public BigDecimal getTotaalPrijs(BigDecimal prijs) {   //hier doen?
 var totaal = new BigDecimal(0);
         return totaal.add(prijs);
