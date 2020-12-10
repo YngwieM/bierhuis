@@ -56,15 +56,15 @@ import java.util.Set;
     public ModelAndView bevestigen( @Valid GegevensForm form, Errors errors) {
         var bestelbon = new Bestelbon(0,form.getNaam(),form.getStraat(),form.getHuisNummer(),form.getPostcode(),form.getGemeente());
         bestelBonService.create(bestelbon);
-        var bestelBonIdInt =bestelBonService.findIdByNaam(form.getNaam()).get().getId();
-        var bestelIdLong = new Long (bestelBonIdInt);
+        var bestelBonIdInt =bestelBonService.findIdByNaam(form.getNaam()).get();
+        var bestelIdLong = new Long (bestelBonIdInt.getId());
         Set<Long> bierIds = mandje.getBierIds();
         List<Bier> besteldeBieren = bierService.findByIds(bierIds);
         besteldeBieren.forEach(bier -> bestelBonLijnService.create(new BestelBonLijn(bestelIdLong,bier.getId(), mandje.getAantalVanBierId(bier.getId()),bier.getPrijs())));
         mandje.voegBestelBonIdToe(bestelIdLong);
 
 
-        return new ModelAndView("redirect:/bevestiging");
+        return new ModelAndView("redirect:/mandje/bevestiging");
     }
 
     @GetMapping("/bevestiging")

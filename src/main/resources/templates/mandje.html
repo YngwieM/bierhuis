@@ -35,6 +35,7 @@
         <td >Totaal:</td>
         <td th:text="${totaal}">Totaal</td>
     </tr>
+    <br>
 
     </tbody>
 </table>
@@ -42,20 +43,31 @@
 <form method="post" th:object="${gegevensForm}" th:action="@{/mandje/bevestigen}">
     <label autofocus required></label>
     <label>Naam:<span th:errors="*{naam}"></span>
-        <input th:field="*{naam}" >
+        <br>
+        <input th:field="*{naam}" required>
     </label>
+    <br>
     <label>Straat:<span th:errors="*{straat}"></span>
-        <input th:field="*{straat}" >
+        <br>
+        <input th:field="*{straat}" required>
     </label>
+    <br>
     <label>Huisnummer:<span th:errors="*{huisNummer}"></span>
-        <input th:field="*{huisNummer}">
+        <br>
+        <input th:field="*{huisNummer}" required>
     </label>
+    <br>
     <label>Postcode:<span th:errors="*{postcode}"></span>
-        <input th:field="*{postcode}" autofocus type="number" required min="0" >
+        <br>
+        <input th:field="*{postcode}"  type="number" min = "1000" max="9999" required >
+        <br>
     </label>
+    <br>
     <label>Gemeente:<span th:errors="*{gemeente}"></span>
-        <input th:field="*{gemeente}" >
+        <br>
+        <input th:field="*{gemeente}" required>
     </label>
+    <br>
 
     <th><button>Bestelbon plaasten</button></th>
 </form>

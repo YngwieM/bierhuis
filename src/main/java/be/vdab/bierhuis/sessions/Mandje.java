@@ -39,7 +39,7 @@ private final Set<Long> bestelBonId = new LinkedHashSet<>();
         return ids.keySet();
     }
 
-    public Set<Long> getBestelBonId() { return bestelBonId;}
+    public Long getBestelBonId() { return bestelBonId.iterator().next();}
 
     public Long getAantalVanBierId(long bierId) {
         return ids.get(bierId);
